@@ -1,0 +1,49 @@
+// К калькулятору из предыдущего ДЗ добавить логирование.
+
+import org.apache.log4j.Logger;
+
+public class Calculator {
+    private static final Logger logger = Logger.getLogger(Calculator.class);
+
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 5;
+
+        int sum = add(a, b);
+        logger.info("Сумма чисел " + a + " и " + b + " равна " + sum);
+
+        int diff = subtract(a, b);
+        logger.info("Разность чисел " + a + " и " + b + " равна " + diff);
+
+        int product = multiply(a, b);
+        logger.info("Произведение чисел " + a + " и " + b + " равно " + product);
+
+        double quotient = divide(a, b);
+        logger.info("Частное чисел " + a + " и " + b + " равно " + quotient);
+    }
+
+    public static int add(int a, int b) {
+        int sum = a + b;
+        return sum;
+    }
+
+    public static int subtract(int a, int b) {
+        int diff = a - b;
+        return diff;
+    }
+
+    public static int multiply(int a, int b) {
+        int product = a * b;
+        return product;
+    }
+
+    public static double divide(int a, int b) {
+        if (b == 0) {
+            logger.error("Деление на ноль!");
+            throw new ArithmeticException("Деление на ноль!");
+        }
+
+        double quotient = (double) a / b;
+        return quotient;
+    }
+}
