@@ -1,0 +1,29 @@
+// Дана строка sql-запроса "select * from students where ". Сформируйте часть WHERE этого запроса, используя StringBuilder. Данные для фильтрации приведены ниже в виде json-строки.
+// Если значение null, то параметр не должен попадать в запрос.
+// Параметры для фильтрации: {"name":"Ivanov", "country":"Russia", "city":"Moscow", "age":"null"}
+
+import org.json.JSONObject;
+
+public class SqlQueryBuilder {
+    public static void main(String[] args) {
+        String json = "{\"name\":\"Ivanov\", \"country\":\"Russia\", \"city\":\"Moscow\", \"age\":\"null\"}";
+        
+        JSONObject filters = new JSONObject(json);
+        StringBuilder whereClause = new StringBuilder();
+        
+        for (String key : filters.keySet()) {
+            String value = filters.getString(key);
+            
+            if (!value.equals("null")) {
+                if (whereClause.length() > 0) {
+                    whereClause.append(" AND ");
+                }
+                
+                whereClause.append(key).append(" = '").append(value).append("'");
+            }
+        }
+        
+        String sqlQuery = "SELECT * FROM students WHERE " + whereClause.toString();
+        System.out.println(sqlQuery);
+    }
+}
