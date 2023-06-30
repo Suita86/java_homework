@@ -1,0 +1,31 @@
+// 4) (дополнительное задание) Задано уравнение вида q + w = e, q, w, e >= 0. Некоторые цифры могут быть заменены знаком вопроса, например, 2? + ?5 = 69. Требуется восстановить выражение до верного равенства. Предложить хотя бы одно решение или сообщить, что его нет.
+
+public class EquationSolver {
+    public static void main(String[] args) {
+        for (int q = 0; q <= 9; q++) {
+            for (int w = 0; w <= 9; w++) {
+                for (int e = 0; e <= 9; e++) {
+                    if (isValidEquation(q, w, e)) {
+                        System.out.println("q = " + q + ", w = " + w + ", e = " + e);
+                        return;
+                    }
+                }
+            }
+        }
+        
+        System.out.println("Решение не найдено");
+    }
+    
+    private static boolean isValidEquation(int q, int w, int e) {
+        // Заменяем знаки вопроса на соответствующие цифры
+        String equation = "2? + ?5 = 69";
+        equation = equation.replaceFirst("\\?", String.valueOf(q));
+        equation = equation.replaceFirst("\\?", String.valueOf(w));
+        
+        // Вычисляем результат
+        int result = Integer.parseInt(equation.substring(equation.lastIndexOf('=') + 1).trim());
+        
+        // Проверяем равенство
+        return (2 * q + 10 * w + 5) == result;
+    }
+}
