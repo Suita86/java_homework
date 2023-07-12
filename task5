@@ -1,0 +1,59 @@
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> numbers = new ArrayList<>();
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+        numbers.add(4);
+        numbers.add(5);
+        numbers.add(6);
+        numbers.add(7);
+        numbers.add(8);
+        numbers.add(9);
+        numbers.add(10);
+
+        // Удаление чётных чисел
+        List<Integer> oddNumbers = new ArrayList<>();
+        for (Integer number : numbers) {
+            if (number % 2 != 0) {
+                oddNumbers.add(number);
+            }
+        }
+
+        // Нахождение минимального значения
+        int minimum = Integer.MAX_VALUE;
+        for (Integer number : oddNumbers) {
+            if (number < minimum) {
+                minimum = number;
+            }
+        }
+
+        // Нахождение максимального значения
+        int maximum = Integer.MIN_VALUE;
+        for (Integer number : oddNumbers) {
+            if (number > maximum) {
+                maximum = number;
+            }
+        }
+
+        // Нахождение среднего значения
+        double sum = 0;
+        for (Integer number : oddNumbers) {
+            sum += number;
+        }
+        double average = sum / oddNumbers.size();
+
+        System.out.println("Список без чётных чисел: " + oddNumbers);
+        System.out.println("Минимальное значение: " + minimum);
+        System.out.println("Максимальное значение: " + maximum);
+        System.out.println("Среднее значение: " + average);
+    }
+}
+
+// Список без чётных чисел: [1, 3, 5, 7, 9]
+// Минимальное значение: 1
+// Максимальное значение: 9
+// Среднее значение: 5.0
+  
+
+      
