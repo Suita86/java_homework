@@ -1,0 +1,65 @@
+// Даны два Deque, представляющие два целых числа. Цифры хранятся в обратном порядке и каждый из их узлов содержит одну цифру.
+// 1) Умножьте два числа и верните произведение в виде связанного списка.
+// 2) Сложите два числа и верните сумму в виде связанного списка. Одно или два числа должны быть отрицательными. 
+
+public ListNode add(Deque<Integer> num1, Deque<Integer> num2) {
+    if (num1.isEmpty() && num2.isEmpty()) {
+        return null;
+    }
+    if (num1.isEmpty()) {
+        return convertToLinkedList(num2);
+    }
+    if (num2.isEmpty()) {
+        return convertToLinkedList(num1);
+    }
+    int sign1 = 1;
+    int sign2 = 1;
+    if (num1.peekLast() < 0) {
+        sign1 = -1;
+        num1.removeLast();
+    }
+    if (num2.peekLast() < 0) {
+        sign2 = -1;
+        num2.removeLast();
+    }
+    ListNode result = new ListNode(0);
+    ListNode curr = result;
+    int carry = 0;
+    while (!num1.isEmpty() || !num2.isEmpty() || carry != 0) {
+        int sum = carry;
+        if (!num1.isEmpty()) {
+            sum += num1.removeLast();
+        }
+        if (!num2.isEmpty()) {
+            sum += num2.removeLast();
+        }
+        curr.next = new ListNode(sum % 10);
+        curr = curr.next;
+        carry = sum / 10;
+    }
+    if (sign1 * sign2 < 0) {
+        result.next.val = -result.next.val;
+    }
+    return reverse(result.next);
+}
+
+private ListNode convertToLinkedList(Deque<Integer> deque) {
+    ListNode head = new ListNode(deque.removeLast());
+    ListNode curr = head;
+    while (!deque.isEmpty()) {
+        curr.next = new ListNode(deque.removeLast());
+        curr = curr.next;
+    }
+    return head;
+}
+
+private ListNode reverse(ListNode node) {
+    ListNode prev = null;
+    while (node != null) {
+        ListNode next = node.next;
+        node.next = prev;
+        prev = node;
+        node = next;
+    }
+    return prev;
+}
